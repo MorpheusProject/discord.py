@@ -8,6 +8,8 @@ Quickstart
 This page gives a brief introduction to the library. It assumes you have the library installed,
 if you don't check the :ref:`installing` portion.
 
+For a more in-depth guide to using discord.py check out the :doc:`tutorial`.
+
 A Minimal Bot
 ---------------
 
