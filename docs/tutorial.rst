@@ -90,19 +90,15 @@ A basic ping command
 
     ...
 
-    class Bot(commands.Bot):
+    @bot.command()
+    async def ping(ctx):
+        """Returns the bots ping in milliseconds."""
+        start = perf_counter()
+        await ctx.channel.trigger_typing()
+        end = perf_counter()
 
-        ...
-
-        @commands.command()
-        async def ping(self, ctx):
-            """Returns the bot's ping in milliseconds."""
-            start = perf_counter()
-            await ctx.channel.trigger_typing()
-            end = perf_counter()
-
-            duration = (end - start) * 1000
-            await ctx.send("Pong! Took `{0:.2f}ms`".format(duration))
+        duration = (end - start) * 1000
+        await ctx.send("Pong! Took `{0:.2f}ms`".format(duration))
 
 
 Converters
