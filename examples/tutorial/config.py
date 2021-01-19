@@ -1,2 +1,1 @@
-token = "place your token here"
-cogs = []
+TOKEN = "place your token here"
