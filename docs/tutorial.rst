@@ -1,56 +1,97 @@
-.. currentmodule:: discord
+
 
 .. _tutorial:
 
 Tutorial
-==========================
+=========
 
+This tutorial covers the basics of creating your own discord bot using discord.py, 
+touching on various library features.
 
-Intro
+Introduction
 -------------------
 
 
-Prereqs
+Before You Start
 ^^^^^^^^^^^^^^^^^
 
+Before making a discord bot using discord.py it is crucial you have a intermediate
+understand of the fundamentals of the Python programming language.
 
-tag lp
-""""""""""""""
+Useful Resources for learning Python
+"""""""""""""""""""""""""""""""""""""
+
+- For complete beginners to programming `Automate the Boring Stuff with Python`__ useful resource for getting started.
+__ https://automatetheboringstuff.com/
+- `The Official Python Tutorial`__ covers everything you'll need to know more in-depth.
+__ https://docs.python.org/3/tutorial/
+- If you're already a competent programmer look at `Learn X in Y`__'s page on python3.
+__ https://learnxinyminutes.com/docs/python3/
 
 
-Creating a bot
------------------------------
 
+Creating a Discord Bot
+-----------------------
 
-fuck is a token
-^^^^^^^^^^^^^^^^^^^^^
+Copy paste from :doc:`discord`
 
 
 Installing discord.py
 --------------------
 
+discord.py works with Python 3.5.3 or higher.
 
 Setup a Virtual Environment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+With any python project, it's bast practice to create a virtual environment to allow 
+for the installation of multiple package versions.
+
+Python comes with the ``venv`` module which can be used to create local virtual environments.
+
+For example on Windows:
+
 .. code-block:: bash
 
     PS > py -m venv ./venv
-    PS > ./venv/Scripts/activate
+
+Or on macOS/Unix:
 
 .. code-block:: bash
     
     $ python3 -m venv ./venv
-    $ source ./venv/bin/activate
 
+This will create a new virtual environment in the ``.venv`` directory.
+
+We can then activate our new virtual environment with the following command.
+
+On windows:
+
+.. code-block:: bash
+
+    PS > ./venv/Scripts/activate.bat
+
+Or on macOS/Unix:
+
+.. code-block:: bash
+
+    $ source ./venv/bin/activate
 
 Install discord.py
 ^^^^^^^^^^^^^^^^^^^^^
+
+Once we've activated our environment we can install discord.py with ``pip``:
 
 .. code-block:: bash
 
     $ pip install discord.py
 
+This will install the latest version of discord.py into our virtual environment, 
+we can validate this by running.
+
+.. code-block:: bash
+
+    $ python -m discord -v
 
 Creating a project
 --------------------
@@ -59,16 +100,24 @@ Creating a project
 Making bot.py
 ^^^^^^^^^^^^^^^^^^^^
 
-import discord/commands
-"""""""""""""""""""""""""
+
+Importing the discord module
+"""""""""""""""""""""""""""""
+
+First we'll need to import the ``discord`` module, this contains the classes and functions 
+we'll need to interface with the discord API.
 
 .. code-block:: python3
 
     import discord
 
 
-subclass bot
-"""""""""""""""""""""""""
+Creating a client
+""""""""""""""""""
+
+In order to interact with the discord API we'll need to create a client.
+
+We can do this by creating an instance of the :class:`discord.Client`
 
 .. code-block:: python3
 
@@ -76,14 +125,23 @@ subclass bot
 
 
 On ready
-'''''''''''''''''''''
+""""""""""""""""""
+
+Now we've made a client instance we need to make it do something. discord.py is an 
+event driven library, meaning usually something would happen and the client would then 
+perform an action in response.
+
+we can use the :meth:`discord.Client.event` decorator to subscribe to a specific event. 
+for example say we wanted to know when the bot had logged in to discord we could listen for the 
+``on_ready`` event like so:
 
 .. code-block:: python3
 
     @client.event
     async def on_ready():
-        print('Logged in as {0}!'.format(client))
+        print('Logged in as {0}!'.format(client.user))
 
+When our bot logs in to the Discord API it'll now print to the console.
 
 Making config.py
 ^^^^^^^^^^^^^^^^^^^^
@@ -99,15 +157,36 @@ paste token
 Testing the bot
 ^^^^^^^^^^^^^^^^^^^^^^
 
+Using our token
+""""""""""""""""
+
+Now we've setup some code for out bot to run when it's logged in to the Discord API we'll 
+need to actually login. To do this we'll need to pass our ``TOKEN`` to the ``client`` instance.
+
+Firstly by importing the config file.
+
 .. code-block:: python3
 
     import config
 
+Then using the :meth:`discord.Client.run` method passing in our ``TOKEN``.
 
 .. code-block:: python3
 
     client.run(config.TOKEN)
 
+Starting the script
+""""""""""""""""""""
+
+now by running the script our bot should successfully connect to the Discord API.
+
+.. code-block:: bash
+
+    $ python bot.py
+
+.. code-block:: text
+
+    Logged in as DPyBot#3333!
 
 
 Recap
@@ -125,7 +204,7 @@ Recap
 
     @client.event
     async def on_ready():
-        print('Logged in as {0}!'.format(client))
+        print('Logged in as {0}!'.format(client.user))
 
 
     client.run(config.TOKEN)
@@ -346,7 +425,7 @@ What are arguments
     @bot.command()
     async def hello(ctx, *, member):
         """TODO"""
-        await ctx.send("Hello {0}!`".format(member))
+        await ctx.send("Hello {0}!".format(member))
 
 
 The fuck is a converter
@@ -357,7 +436,7 @@ The fuck is a converter
     @bot.command()
     async def hello(ctx, *, member: discord.Member):
         """TODO"""
-        await ctx.send("Hello {0}!`".format(member.display_name))
+        await ctx.send("Hello {0}!".format(member.display_name))
 
 
 Help command
