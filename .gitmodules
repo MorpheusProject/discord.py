@@ -1,0 +1,3 @@
+[submodule "examples/tutorial"]
+	path = examples/tutorial
+	url = https://github.com/MorpheusProject/tutorial-bot
